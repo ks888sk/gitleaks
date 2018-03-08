@@ -1,0 +1,5 @@
+inspecode:
+  gofmt: default
+  golint: default
+  goimports: default
+  go-test: default
