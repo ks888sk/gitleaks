@@ -1,5 +1,13 @@
 inspecode:
-  gofmt: default
-  golint: default
-  goimports: default
-  go-test: default
+  gofmt:
+    thresholds:
+      num-issues: 0
+  golint:
+    thresholds:
+      num-issues: 0
+  goimports:
+    thresholds:
+      num-issues: 0
+  go-test:
+    thresholds:
+      num-issues: 0
