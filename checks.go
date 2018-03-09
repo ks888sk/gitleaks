@@ -1,19 +1,16 @@
 package main
 
 import (
-	_ "fmt"
 	"math"
 	"strings"
 )
 
-// TODO LOCAL REPO!!!!
-
 // checks Regex and if enabled, entropy and stopwords
-func doChecks(diff string, commit Commit, opts *Options, repo RepoDesc) []LeakElem {
+func doChecks(diff string, commit Commit, repo *Repo) []Leak {
 	var (
 		match string
-		leaks []LeakElem
-		leak  LeakElem
+		leaks []Leak
+		leak  Leak
 	)
 
 	lines := strings.Split(diff, "\n")
@@ -34,7 +31,7 @@ func doChecks(diff string, commit Commit, opts *Options, repo RepoDesc) []LeakEl
 				continue
 			}
 
-			leak = LeakElem{
+			leak = Leak{
 				Line:     line,
 				Commit:   commit.Hash,
 				Offender: match,
@@ -107,6 +104,9 @@ func checkShannonEntropy(target string, opts *Options) bool {
 
 // containsStopWords checks if there are any stop words in target
 func containsStopWords(target string) bool {
+	// Convert to lowercase to reduce the number of loops needed.
+	target = strings.ToLower(target)
+
 	for _, stopWord := range stopWords {
 		if strings.Contains(target, stopWord) {
 			return true
